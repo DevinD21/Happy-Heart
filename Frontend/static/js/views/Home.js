@@ -8,16 +8,27 @@ export default class extends AbstractView {
 
     async getHtml() {
         return `
-            <h1>Happy Heart ♥️</h1>
-            <input id="sys-press" type="text" placeholder="Enter Systolic pressure"> 
-            <button id="sys-button">Enter</button>
-            <br>
-            <input id="dia-press" type="text" placeholder="Enter Diastolic pressure">
-            <button id="dia-button">Enter</button>
-            <br>
-            <p>
-               Results will be Displayed here
-            </p>
+            <h1 class="home_title">Happy Heart ♥️</h1>
+            <div class="home_cont">
+                <form class="home_form">
+                    <div class="home_message">
+                        <p>Please enter your current Systolic and Diastolic pressure.</p>
+                    </div>
+                    <div class="home_input-group">
+                        <input class="home_input" type="text" placeholder="Systolic pressure"> 
+                    </div>
+                    <div class="home_input-group">
+                        <input class="home_input" type="text" placeholder="Diastolic pressure">
+                    </div>
+                    <button class="home_button">Enter</button>
+                    <br>
+                </form>
+            </div>
+            <div class="home_results">
+                <form class="result_form form_hidden">
+                    <p>Results will be displayed here</p>
+                </form>
+            </div>
         `;
     }
 }

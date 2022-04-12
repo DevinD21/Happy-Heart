@@ -60,3 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     router();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const resultForm = document.querySelector("#result_form");
+
+    document.querySelector("#home_button").addEventListener("click", e => {
+        e.preventDefault();
+        resultForm.classList.remove("form_hidden");
+    });
+});
