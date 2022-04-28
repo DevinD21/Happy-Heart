@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LOGIN PAGE</title>
+    <title>Login</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/Login.css">
-    <script type="module" src="/static/js/Login.js"></script>
 </head>
 <body>
-        <div class="container">
+        <div class="container" id="loginDiv">
             <form class="form" id="login">
                 <h1 class="form_title">Login</h1>
                 <div class="form_input-group">
-                    <input type="text" class="form_input" autofocus placeholder="Enter email">
+                    <input type="text" id="LEmail" class="form_input" autofocus placeholder="Enter email">
                 </div>
                 <div class="form_input-group">
-                    <input type="password" class="form_input" autofocus placeholder="Enter password">
+                    <input type="password" id="LPass" class="form_input" autofocus placeholder="Enter password">
                 </div>
-                <button class="form_button" type="submit">Login</button>
+                <button class="form_button" id="LButton" type="submit">Login</button>
                 <p class="form_text">
                     <a class="form_link" href="./" id="createAccLink">Don't have an account? Create account</a>
                 </p>
@@ -24,19 +27,19 @@
             <form class="form form_hidden" id="createAcc">
                 <h1 class="form_title">Create Account</h1>
                 <div class="form_input-group">
-                    <input type="text" class="form_input" autofocus placeholder="Enter first name">
+                    <input type="text" class="form_input" id="fName" autofocus placeholder="Enter first name">
                 </div>
                 <div class="form_input-group">
-                    <input type="text" class="form_input" autofocus placeholder="Enter last name">
+                    <input type="text" class="form_input" id="lName" autofocus placeholder="Enter last name">
                 </div>
                 <div class="form_input-group">
-                    <input type="text" class="form_input" autofocus placeholder="Enter email">
+                    <input type="text" class="form_input" id="CEmail"autofocus placeholder="Enter email">
                 </div>
                 <div class="form_input-group">
-                    <input type="password" class="form_input" autofocus placeholder="Enter password">
+                    <input type="password" class="form_input" id="CPass" autofocus placeholder="Enter password">
                 </div>
                 <div class="form_input-group">
-                    <input type="password" class="form_input" autofocus placeholder="Re-enter password">
+                    <input type="password" class="form_input" id="CRePass"autofocus placeholder="Re-enter password">
                 </div>
                 <button class="form_button" type="submit">Submit</button>
                 <p class="form_text">
@@ -44,5 +47,6 @@
                 </p>
             </form>
         </div>
+        <script type="module" src="static/js/index.js"></script>
 </body>
 </html>
