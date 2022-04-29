@@ -15,7 +15,7 @@ let userInfo = [
     },
 ];
 
-let bloodInfo = [
+let userBP = [
     {
         userId: 1,
         info: 1,
@@ -35,15 +35,16 @@ let bloodInfo = [
 app.use("/static", express.static(path.resolve(__dirname, "Frontend", "static")));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/Frontend/index.html"));
+app.use(express.static(__dirname + "/Frontend/Login.html"));
 
 //GET Login url
 app.get("/", (req,res) => {
-    res.sendFile(path.resolve(__dirname,"Frontend", "login.html"));
+    res.sendFile(path.resolve(__dirname,"Frontend", "Login.html"));
 });
 
 //GET home url
-app.get('/home', function(req, res) {
-    res.sendFile(path.resolve(__dirname, 'Frontend','index.html'));
+app.get('/*', function(req, res) {
+   res.sendFile(path.resolve(__dirname, 'Frontend','index.html'));
 });
 
 //POST: User login authentication
@@ -51,35 +52,21 @@ app.post('/login', function(req,res) {
     let email = req.body.Lemail;
     let pass = req.body.Lpass;
     let found = false;
-    let currentUserBP = [];
-    let currentUserOb;
 
 
     userInfo.forEach(function (user, index) {
         if(!found && email === user.email && pass === user.password ){
             currentUser = user.id;
-            //res.redirect('/home');
             found = true;
+            res.send('success');
         }
         else{
             res.send('Wrong email or password');
         }
     });
-
-    bloodInfo.forEach(function(userBP, index){
-        if(currentUser === userBP.userId)
-        {
-            currentUserOb = new Object({
-                date: userBP.date,
-                dia: userBP.dia,
-                sys: userBP.sys,
-            });
-
-            currentUserBP.push(currentUserOb);
-        }
-    });
-    res.send({currentUserBP: currentUserBP});
+    res.sendStatus(currentUser);
 });
+
 
 //POST: Create account
 app.post('/createAcc', function(req,res) {
@@ -99,8 +86,7 @@ app.post('/createAcc', function(req,res) {
             userInfo.email = email;
             userInfo.password = pass;
             notFound = true;
-            res.redirect('/home');
-            res.send("Success");
+            res.send('success');
         }
         else{
             res.send('Wrong email or password');
@@ -108,31 +94,30 @@ app.post('/createAcc', function(req,res) {
     });
 });
 
-app.put('/home/results', function(req,res){
-    let sysPress = req.body.sys;
-    let diaPress = req.body.sys;
+console.log(currentUser);
+app.put('/results', function(req,res){
+    let sysPress = req.body.sysPress;
+    let diaPress = req.body.diaPress;
     let bloodId;
+    res.send('Info passed here');
 
-    bloodInfo.forEach(function(user, index){
+    userBP.forEach(function(user, index){
         if(currentUser === user.userId)
         {
-            bloodId = user.info;
+            bloodId = Number(user.info);
         }
     });
 
-    let newBP = new Object(
-        {
+    let newBP = new Object({
             userId: currentUser,
-            info: ++bloodInfo,
+            info: ++bloodId,
             sys: sysPress,
             dia: diaPress
         });
-    bloodInfo.push(newBP);
-    res.send({bloodInfo: bloodInfo});
 });
 
-app.put('/records', function(req,res){
-
+app.put('/record',function(req,res){
+    res.send({userBP: userBP});
 });
 
 app.listen(process.env.PORT || 3000, () => console.log("Server running..."));

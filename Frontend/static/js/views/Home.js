@@ -8,8 +8,6 @@ export default class extends AbstractView {
 
     async getHtml() {
         return `
-<!DOCTYPE html>
-              
                 <h1 class="home_title">Happy Heart ♥️</h1>
                 <div class="home_cont">
                     <form class="home_form" id="home">
@@ -27,8 +25,8 @@ export default class extends AbstractView {
                     </form>
                 </div>
                 <div class="home_results">
-                    <form class="result_form form_hidden">
-                        <p>Results will be displayed here</p>
+                    <form class="result_form" id="results">
+                        <p id="p_results"></p>
                     </form>
                 </div>
         `;

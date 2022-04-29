@@ -22,8 +22,8 @@ export default class extends AbstractView {
                 <h1>Records</h1>
                 <div class="record_cont">
                     <form class="record_form">
-                    <button class="share_button">Share</button>
-                        <table id="Records_Table">
+                    <button class="share_button">Records</button>
+                        <table id="records_table">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -31,7 +31,7 @@ export default class extends AbstractView {
                                     <th>Diastolic pressure</th>
                                 </tr>    
                             </thead>
-                            <tbody id="recordsTable"></tbody>
+                            <tbody id="recordsTbody"></tbody>
                         </table>
                     </form>
                 </div>
