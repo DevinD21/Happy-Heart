@@ -1,7 +1,7 @@
 import Home from "./views/Home.js";
 import Records from "./views/Records.js";
-import Share from "./views/Share.js";
 import Settings from "./views/Settings.js";
+
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 let currentUser = 0;
 
@@ -23,7 +23,6 @@ const router = async () => {
     const routes = [
         {path: "/home", view: Home},
         {path: "/records", view: Records},
-        {path: "/share", view: Share},
         {path: "/settings", view: Settings},
     ];
 
@@ -117,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             success: function (response) {
                 window.location.href = "/Frontend/index.htm";
                 navigateTo('/home');
+                window.location.reload();
             }
         });
     });

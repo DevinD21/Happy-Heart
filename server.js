@@ -96,28 +96,16 @@ app.post('/createAcc', function(req,res) {
 
 console.log(currentUser);
 app.put('/results', function(req,res){
-    let sysPress = req.body.sysPress;
-    let diaPress = req.body.diaPress;
-    let bloodId;
-    res.send('Info passed here');
+    res.send('success');
 
-    userBP.forEach(function(user, index){
-        if(currentUser === user.userId)
-        {
-            bloodId = Number(user.info);
-        }
-    });
-
-    let newBP = new Object({
-            userId: currentUser,
-            info: ++bloodId,
-            sys: sysPress,
-            dia: diaPress
-        });
 });
 
 app.put('/record',function(req,res){
-    res.send({userBP: userBP});
+    res.send('success');
+});
+
+app.delete('/settings', function(req,res){
+    res.send('success');
 });
 
 app.listen(process.env.PORT || 3000, () => console.log("Server running..."));

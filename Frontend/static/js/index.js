@@ -1,7 +1,10 @@
 import Home from "./views/Home.js";
 import Records from "./views/Records.js";
-import Share from "./views/Share.js";
 import Settings from "./views/Settings.js";
+import {showResult} from "./main.js";
+import {displayALL} from "./main.js";
+import {deleteAll} from "./main.js";
+
 const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
 const getParams = match => {
@@ -22,7 +25,6 @@ const router = async () => {
     const routes = [
         {path: "/home", view: Home},
         {path: "/records", view: Records},
-        {path: "/share", view: Share},
         {path: "/settings", view: Settings},
     ];
 
@@ -64,53 +66,73 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     router();
 
-    //PUT: handler for home page
+    //PUT:stores user input for systolic and diastolic blood press and displays the results
     document.querySelector("#app").addEventListener('submit', e => {
         e.preventDefault();
-        let sysPress = document.querySelector('#sysPress').value;
-        let diaPress = document.querySelector('#diaPress').value;
+        $('#home').on('submit', e => {
+            e.preventDefault();
+            let sysPress = $('#sysPress').val();
+            let diaPress = $('#diaPress').val();
 
-        $.ajax({
-            url: '/results',
-            method: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify({sysPress: sysPress, diaPress: diaPress}),
-            success: function (response) {
-                let results = $('#p_results');
+            $.ajax({
+                url: '/results',
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({sysPress: sysPress, diaPress: diaPress}),
+                success: function (response) {
+                    let results = showResult(sysPress, diaPress);
+                    let ResultForm = $("#results")
 
-                results.html('');
+                    $('#sysPress').val('');
+                    $('#diaPress').val('');
 
-                results.html(response);
+                    ResultForm.html('');
 
-            }
+                    ResultForm.html(results);
+
+                }
+            });
         });
     });
 
     //PUT: handler for records page
     document.querySelector("#app").addEventListener('submit', e => {
         e.preventDefault();
-        $.ajax({
-            url: '/record',
-            method: 'PUT',
-            contentType: 'application/json',
-            success: function(response){
-                let recordsTbody = $('#recordsTbody');
+        $('#record_form').on('submit', e => {
+            e.preventDefault();
+            $.ajax({
+                url: '/record',
+                method: 'PUT',
+                contentType: 'application/json',
+                success: function(response){
+                    let recordsTbody = $('#recordsTbody');
 
-                recordsTbody.html('');
+                    recordsTbody.html('');
 
-                response.userBP.forEach(function(bp) {
-                    recordsTbody.append('\
-                        <tr> \
-                            <td >' + bp.date + '</td>\
-                            <td>' + bp.sys + '</td>\
-                            <td>' +  bp.dia  + ' </td>\
-                        </tr> \
-                    ');
-                });
-            }
+                    for(let i = 0; i < displayALL().length; ++i)
+                    {
+                        recordsTbody.append(displayALL()[i]);
+                    }
+                }
+            });
         });
     });
 
+    //DELETE all records
+    document.querySelector("#app").addEventListener('submit', e => {
+        e.preventDefault();
+        $('#settings_form').on('submit', e => {
+            e.preventDefault();
+            $.ajax({
+                url: '/settings',
+                method: 'DELETE',
+                contentType: 'application/json',
+                success: function (response) {
+                    deleteAll();
+                }
+            });
+        });
+    });
 });
 
 

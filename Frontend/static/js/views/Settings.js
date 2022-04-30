@@ -9,8 +9,10 @@ export default class extends AbstractView {
     async getHtml() {
         return `
             <h1>Settings</h1>
-            <button></button>
-            <p></p>
+            <form class="settings_form" id="settings_form">
+                <button class="settings_button" id="settings_button" type="submit"">Delete Records</button>
+                <p></p>
+            </form>
         `;
     }
 }
